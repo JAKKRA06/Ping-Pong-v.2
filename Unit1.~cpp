@@ -7,11 +7,51 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TForm1 *Form1;
+TPingPong *PingPong;
+
+int x = -8;
+int y = -8;
 //---------------------------------------------------------------------------
-__fastcall TForm1::TForm1(TComponent* Owner)
+__fastcall TPingPong::TPingPong(TComponent* Owner)
         : TForm(Owner)
 {
 }
 //---------------------------------------------------------------------------
- 
+
+void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
+{
+  ball->Left += x;
+  ball->Top += y;
+
+  //odbicie od top
+  if(ball->Top <= 0) y = -y;
+  //odbicie od bottom
+  if(ball->Top + ball->Height >= tlo->Height) y = -y;
+  //skucha
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}
+//---------------------------------------------------------------------------
+void __fastcall TPingPong::LeftUpTimer(TObject *Sender)
+{
+  if(paddleLeft->Top >= 10) paddleLeft->Top -= 10;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPingPong::LeftDownTimer(TObject *Sender)
+{
+  if(paddleLeft->Top + paddleLeft->Height <= tlo->Height+10) paddleLeft->Top += 10;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPingPong::FormKeyDown(TObject *Sender, WORD &Key,
+      TShiftState Shift)
+{
+   if(Key == 0x51) LeftUp->Enabled = true;
+   if(Key == 0x41) LeftDown->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TPingPong::FormKeyUp(TObject *Sender, WORD &Key,
+      TShiftState Shift)
+{
+   if(Key == 0x51) LeftUp->Enabled = false;
+   if(Key == 0x41) LeftDown->Enabled = false;
+}
+//---------------------------------------------------------------------------
