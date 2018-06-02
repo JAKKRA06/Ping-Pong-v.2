@@ -1,6 +1,6 @@
 object PingPong: TPingPong
-  Left = 298
-  Top = 170
+  Left = 308
+  Top = 147
   Width = 951
   Height = 479
   Caption = 'PingPong'
@@ -224,8 +224,8 @@ object PingPong: TPingPong
       17291E17291E17291E17291E17291EFFFFFF}
   end
   object ball: TImage
-    Left = 784
-    Top = 32
+    Left = 352
+    Top = 24
     Width = 32
     Height = 32
     AutoSize = True
@@ -531,7 +531,7 @@ object PingPong: TPingPong
     Transparent = True
   end
   object Timer_ball: TTimer
-    Interval = 15
+    Interval = 50
     OnTimer = Timer_ballTimer
     Left = 432
     Top = 24

@@ -9,8 +9,8 @@
 #pragma resource "*.dfm"
 TPingPong *PingPong;
 
-int x = -8;
-int y = -8;
+int x = -5;
+int y = -5;
 int scorePlayerLeft = 0;
 int scorePlayerRight = 0;
 //---------------------------------------------------------------------------
@@ -29,13 +29,31 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
   if(ball->Top <= 0) y = -y;
   //odbicie od bottom
   if(ball->Top + ball->Height >= tlo->Height) y = -y;
-  //skucha
-  if(ball->Left <= paddleLeft->Left + paddleLeft->Width)
+
+  //skucha lewego
+  if(ball->Left >= paddleLeft->Left + paddleLeft->Width &&
+     ball->Top <= paddleLeft->Top - ball->Height/2 &&
+     ball->Top + ball->Height < paddleLeft->Top + paddleLeft->Height)
+  {
+      if(x>0) x = -x;
+  }
+  else if(ball->Left <= 0)
   {
      Timer_ball->Enabled = false;
      ball->Visible = false;
      scorePlayerRight++;
   }
+  //skucha prawego
+  if(ball->Left + ball->Width >= paddleRight->Left + paddleRight->Width)
+  {
+     Timer_ball->Enabled = false;
+     ball->Visible = false;
+     scorePlayerLeft++;
+
+  }else if(ball->Left + ball->Width < paddleRight->Left)
+          {
+
+          }
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 }
