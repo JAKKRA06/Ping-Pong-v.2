@@ -30,30 +30,29 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
   //odbicie od bottom
   if(ball->Top + ball->Height >= tlo->Height) y = -y;
 
-  //skucha lewego
-  if(ball->Left <= 0)
-  {
+    //skucha prawego i odbicie
+    if(ball->Left >= paddleRight->Left + paddleRight->Width)
+    {
      Timer_ball->Enabled = false;
      ball->Visible = false;
-     scorePlayerRight++;
-  } else if(ball->Top > paddleLeft->Top - ball->Height/2 &&
-            ball->Top < paddleLeft->Top + paddleLeft->Height &&
-            ball->Left < paddleLeft->Left + paddleLeft->Width)
-           {
-             if(x>0) x = -x;
-           }
-  // odbicie i skucha prawego
-  if(ball->Left >= tlo->Width)
-  {
-     Timer_ball->Enabled = false;
-     ball->Visible = false;
-     scorePlayerRight++;
-  } else if(ball->Top > paddleRight->Top - ball->Height/2 &&
-            ball->Top < paddleRight->Top + paddleRight->Height &&
-            ball->Left + ball->Width > paddleRight->Left)
-            {
-              if(x>0) x = -x;
-            }
+    } else if(ball->Top > paddleRight->Top - ball->Height/2 &&
+              ball->Top < paddleRight->Top + paddleRight->Height &&
+              ball->Left + ball->Width > paddleRight->Left)
+              {
+                x = -x;
+              }
+
+    //skucha lewo i odbicie
+    if(ball->Left <= paddleLeft->Left)
+    {
+      Timer_ball->Enabled = false;
+      ball->Visible = false;
+    } else if(ball->Top > paddleLeft->Top - ball->Height/2 &&
+              ball->Top < paddleLeft->Top + paddleLeft->Height &&
+              ball->Left < paddleLeft->Left + paddleLeft->Width)
+              {
+                x = -x;
+              }
 }
 //---------------------------------------------------------------------------
 void __fastcall TPingPong::LeftUpTimer(TObject *Sender)

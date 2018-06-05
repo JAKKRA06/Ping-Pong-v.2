@@ -43,14 +43,14 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
              if(x>0) x = -x;
            }
   // odbicie i skucha prawego
-  if(ball->Left + ball->Width > tlo->Width)
+  if(ball->Left >= tlo->Width)
   {
      Timer_ball->Enabled = false;
      ball->Visible = false;
      scorePlayerRight++;
   } else if(ball->Top > paddleRight->Top - ball->Height/2 &&
             ball->Top < paddleRight->Top + paddleRight->Height &&
-            ball->Left + ball->Width < paddleRight->Left)
+            ball->Left + ball->Width > paddleRight->Left)
             {
               if(x>0) x = -x;
             }
