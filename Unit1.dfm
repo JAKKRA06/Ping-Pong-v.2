@@ -224,8 +224,8 @@ object PingPong: TPingPong
       17291E17291E17291E17291E17291EFFFFFF}
   end
   object ball: TImage
-    Left = 352
-    Top = 24
+    Left = 72
+    Top = 240
     Width = 32
     Height = 32
     AutoSize = True

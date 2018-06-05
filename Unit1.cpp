@@ -26,36 +26,34 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
   ball->Top += y;
 
   //odbicie od top
-  if(ball->Top <= 0) y = -y;
+  if(ball->Top - 5 <= 0) y = -y;
   //odbicie od bottom
   if(ball->Top + ball->Height >= tlo->Height) y = -y;
 
   //skucha lewego
-  if(ball->Left >= paddleLeft->Left + paddleLeft->Width &&
-     ball->Top <= paddleLeft->Top - ball->Height/2 &&
-     ball->Top + ball->Height < paddleLeft->Top + paddleLeft->Height)
-  {
-      if(x>0) x = -x;
-  }
-  else if(ball->Left <= 0)
+  if(ball->Left <= 0)
   {
      Timer_ball->Enabled = false;
      ball->Visible = false;
      scorePlayerRight++;
-  }
-  //skucha prawego
-  if(ball->Left + ball->Width >= paddleRight->Left + paddleRight->Width)
+  } else if(ball->Top > paddleLeft->Top - ball->Height/2 &&
+            ball->Top < paddleLeft->Top + paddleLeft->Height &&
+            ball->Left < paddleLeft->Left + paddleLeft->Width)
+           {
+             if(x>0) x = -x;
+           }
+  // odbicie i skucha prawego
+  if(ball->Left >= tlo->Width)
   {
      Timer_ball->Enabled = false;
      ball->Visible = false;
-     scorePlayerLeft++;
-
-  }else if(ball->Left + ball->Width < paddleRight->Left)
-          {
-
-          }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+     scorePlayerRight++;
+  } else if(ball->Top > paddleRight->Top - ball->Height/2 &&
+            ball->Top < paddleRight->Top + paddleRight->Height &&
+            ball->Left + ball->Width > paddleRight->Left)
+            {
+              if(x>0) x = -x;
+            }
 }
 //---------------------------------------------------------------------------
 void __fastcall TPingPong::LeftUpTimer(TObject *Sender)
@@ -65,7 +63,7 @@ void __fastcall TPingPong::LeftUpTimer(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPingPong::LeftDownTimer(TObject *Sender)
 {
-  if(paddleLeft->Top + paddleLeft->Height <= tlo->Height+10) paddleLeft->Top += 10;
+  if(paddleLeft->Top + paddleLeft->Height + 10 <= tlo->Height) paddleLeft->Top += 10;
 }
 //---------------------------------------------------------------------------
 void __fastcall TPingPong::FormKeyDown(TObject *Sender, WORD &Key,
@@ -96,3 +94,4 @@ void __fastcall TPingPong::RightDownTimer(TObject *Sender)
   if(paddleRight->Top + paddleRight->Height + 10 <= tlo->Height) paddleRight->Top += 10;
 }
 //---------------------------------------------------------------------------
+
