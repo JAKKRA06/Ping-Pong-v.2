@@ -1,8 +1,9 @@
 object PingPong: TPingPong
-  Left = 308
-  Top = 147
-  Width = 951
-  Height = 479
+  Left = 209
+  Top = 237
+  Width = 1011
+  Height = 456
+  Align = alCustom
   Caption = 'PingPong'
   Color = clBtnFace
   UseDockManager = True
@@ -13,24 +14,56 @@ object PingPong: TPingPong
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
+  DesignSize = (
+    995
+    417)
   PixelsPerInch = 96
   TextHeight = 13
+  object tlo3: TShape
+    Left = 0
+    Top = 0
+    Width = 995
+    Height = 417
+    Align = alClient
+    Brush.Color = clFuchsia
+    Visible = False
+  end
+  object tlo4: TShape
+    Left = 0
+    Top = 0
+    Width = 995
+    Height = 417
+    Align = alClient
+    Brush.Color = clBlue
+    Visible = False
+  end
+  object tlo2: TShape
+    Left = 0
+    Top = 0
+    Width = 995
+    Height = 417
+    Align = alClient
+    Brush.Color = clGreen
+    Visible = False
+  end
   object tlo: TShape
     Left = 0
     Top = 0
-    Width = 935
-    Height = 440
+    Width = 995
+    Height = 417
     Align = alClient
-    Brush.Color = clAqua
+    Brush.Color = clMaroon
   end
   object paddleLeft: TImage
-    Left = 32
-    Top = 160
+    Left = 24
+    Top = 176
     Width = 20
     Height = 100
     AutoSize = True
+    Center = True
     Picture.Data = {
       07544269746D6170A6170000424DA61700000000000036000000280000001400
       000064000000010018000000000070170000230B0000230B0000000000000000
@@ -224,8 +257,8 @@ object PingPong: TPingPong
       17291E17291E17291E17291E17291EFFFFFF}
   end
   object ball: TImage
-    Left = 72
-    Top = 240
+    Left = 456
+    Top = 200
     Width = 32
     Height = 32
     AutoSize = True
@@ -332,11 +365,13 @@ object PingPong: TPingPong
     Transparent = True
   end
   object paddleRight: TImage
-    Left = 872
-    Top = 184
+    Left = 950
+    Top = 154
     Width = 20
     Height = 100
+    Anchors = []
     AutoSize = True
+    Center = True
     Picture.Data = {
       07544269746D6170A6170000424DA61700000000000036000000280000001400
       000064000000010018000000000070170000230B0000230B0000000000000000
@@ -530,38 +565,122 @@ object PingPong: TPingPong
       17291E17291E17291E17291E17291EFFFFFF}
     Transparent = True
   end
+  object Button1: TButton
+    Left = 252
+    Top = 95
+    Width = 465
+    Height = 57
+    Cursor = crArrow
+    Anchors = []
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    Visible = False
+  end
+  object Button2: TButton
+    Left = 381
+    Top = 158
+    Width = 179
+    Height = 33
+    Anchors = []
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    Visible = False
+  end
+  object Button3: TButton
+    Left = 341
+    Top = 237
+    Width = 265
+    Height = 41
+    Cursor = crHandPoint
+    Anchors = []
+    Caption = 'Rozpocznij od nowa'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    Visible = False
+    OnClick = Button3Click
+  end
+  object Button4: TButton
+    Left = 341
+    Top = 291
+    Width = 267
+    Height = 41
+    Cursor = crHandPoint
+    Anchors = []
+    Caption = 'Graj dalej'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    Visible = False
+    OnClick = Button4Click
+  end
+  object buttonNewGame: TButton
+    Left = 248
+    Top = 96
+    Width = 473
+    Height = 57
+    Cursor = crHandPoint
+    Caption = 'Kliknij aby rozpocz'#261#263' gr'#281
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+    Visible = False
+    OnClick = buttonNewGameClick
+  end
   object Timer_ball: TTimer
     Interval = 50
     OnTimer = Timer_ballTimer
-    Left = 432
-    Top = 24
+    Left = 448
+    Top = 32
   end
   object LeftUp: TTimer
     Enabled = False
     Interval = 20
     OnTimer = LeftUpTimer
-    Left = 32
-    Top = 128
+    Left = 16
+    Top = 96
   end
   object LeftDown: TTimer
     Enabled = False
     Interval = 20
     OnTimer = LeftDownTimer
     Left = 32
-    Top = 272
+    Top = 328
   end
   object RightUp: TTimer
     Enabled = False
     Interval = 20
     OnTimer = RightUpTimer
-    Left = 872
-    Top = 152
+    Left = 944
+    Top = 88
   end
   object RightDown: TTimer
     Enabled = False
     Interval = 20
     OnTimer = RightDownTimer
-    Left = 872
-    Top = 296
+    Left = 952
+    Top = 288
   end
 end

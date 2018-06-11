@@ -9,10 +9,13 @@
 #pragma resource "*.dfm"
 TPingPong *PingPong;
 
-int x = -5;
-int y = -5;
+int x = -8;
+int y = -8;
 int scorePlayerLeft = 0;
 int scorePlayerRight = 0;
+int bounces = 0;
+bool whoPlay = false;
+
 //---------------------------------------------------------------------------
 __fastcall TPingPong::TPingPong(TComponent* Owner)
         : TForm(Owner)
@@ -30,30 +33,137 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
   //odbicie od bottom
   if(ball->Top + ball->Height >= tlo->Height) y = -y;
 
-  //skucha lewego
-  if(ball->Left <= 0)
-  {
-     Timer_ball->Enabled = false;
-     ball->Visible = false;
-     scorePlayerRight++;
-  } else if(ball->Top > paddleLeft->Top - ball->Height/2 &&
-            ball->Top < paddleLeft->Top + paddleLeft->Height &&
-            ball->Left < paddleLeft->Left + paddleLeft->Width)
-           {
-             if(x>0) x = -x;
-           }
-  // odbicie i skucha prawego
-  if(ball->Left >= tlo->Width)
-  {
-     Timer_ball->Enabled = false;
-     ball->Visible = false;
-     scorePlayerRight++;
-  } else if(ball->Top > paddleRight->Top - ball->Height/2 &&
-            ball->Top < paddleRight->Top + paddleRight->Height &&
-            ball->Left + ball->Width > paddleRight->Left)
-            {
-              if(x>0) x = -x;
-            }
+    //skucha prawego i odbicie
+    if(ball->Left >= paddleRight->Left + paddleRight->Width)
+    {
+     if(bounces == 0)
+      {
+        Button1->Caption = "¯aden z zawodników nie odbi³ pi³ki";
+        Button1->Visible = true;
+        Button2->Caption = IntToStr(scorePlayerLeft) + ":" + IntToStr(scorePlayerRight);
+        Button2->Visible = true;
+        ball->Visible = false;
+        Timer_ball->Enabled = false;
+        Button3->Visible = true;
+        Button4->Caption = "Graj dalej. Ilosc odbic: " + IntToStr(bounces);
+        Button4->Visible = true;
+      }else
+      {
+         whoPlay = true;
+         Timer_ball->Enabled = false;
+         ball->Visible = false;
+         scorePlayerLeft++;
+         Button1->Caption = "<-- Punkt dla zawodnika z lewej strony";
+         Button1->Visible = true;
+         Button2->Caption = IntToStr(scorePlayerLeft) + ":" + IntToStr(scorePlayerRight);
+         Button2->Visible = true;
+         Button3->Visible = true;
+         Button4->Caption = "Graj dalej. Ilosc odbic: " + IntToStr(bounces);
+         Button4->Visible = true;
+      }
+    } else if(ball->Top > paddleRight->Top - ball->Height/2 &&
+              ball->Top < paddleRight->Top + paddleRight->Height &&
+              ball->Left + ball->Width > paddleRight->Left)
+              {
+                if(x>0)
+                {
+                  x = -x;
+                  x -= 4;
+                  y += 4;
+                  bounces++;
+                }
+              }
+
+    //skucha lewo i odbicie
+    if(ball->Left <= paddleLeft->Left)
+    {
+     if(bounces == 0)
+      {
+        Button1->Caption = "¯aden z zawodników nie odbi³ pi³ki";
+        Button1->Visible = true;
+        Button2->Caption = IntToStr(scorePlayerLeft) + ":" + IntToStr(scorePlayerRight);
+        Button2->Visible = true;
+        ball->Visible = false;
+        Timer_ball->Enabled = false;
+        Button3->Visible = true;
+        Button4->Caption = "Graj dalej. Ilosc odbic: " + IntToStr(bounces);
+        Button4->Visible = true;
+      }else
+      {
+         whoPlay = true;
+         Timer_ball->Enabled = false;
+         ball->Visible = false;
+         scorePlayerLeft++;
+         Button1->Caption = "Punkt dla zawodnika z prawej strony -->";
+         Button1->Visible = true;
+         Button2->Caption = IntToStr(scorePlayerLeft) + ":" + IntToStr(scorePlayerRight);
+         Button2->Visible = true;
+         Button3->Visible = true;
+         Button4->Caption = "Graj dalej. Ilosc odbic: " + IntToStr(bounces);
+         Button4->Visible = true;
+      }
+    } else if(ball->Top > paddleLeft->Top - ball->Height/2 &&
+              ball->Top < paddleLeft->Top + paddleLeft->Height &&
+              ball->Left < paddleLeft->Left + paddleLeft->Width)
+              {
+                  x = -x;
+                  x += 4;
+                  y += 4;
+                  bounces++;
+              }
+   if(bounces == 5)
+   {
+     tlo->Visible = false;
+     tlo2->Visible = true;
+     paddleLeft->Visible = true;
+     paddleRight->Visible = true;
+     ball->Visible = true;
+   }
+   else if(bounces == 10)
+   {
+     tlo2->Visible = false;
+     tlo3->Visible = true;
+     paddleLeft->Visible = true;
+     paddleRight->Visible = true;
+     ball->Visible = true;
+   }
+  else if(bounces == 15)
+   {
+     tlo3->Visible = false;
+     tlo4->Visible = true;
+     paddleLeft->Visible = true;
+     paddleRight->Visible = true;
+     ball->Visible = true;
+   }
+
+   if(scorePlayerLeft == 2)
+   {
+     if(Application->MessageBox("Wygrywa gracz po lewej stronie!!!!","GRATULACJE!!", MB_OK ) == IDOK)
+     {
+       ball->Visible = false;
+       buttonNewGame->Visible = true;
+       Button2->Visible = false;
+       Button3->Visible = false;
+       Button4->Visible = false;
+       scorePlayerRight = 0;
+       scorePlayerLeft = 0;
+       bounces = 0;
+     }
+   }
+   else if(scorePlayerRight == 5)
+   {
+     if(Application->MessageBox("Wygrywa gracz po prawej stronie!!!!","GRATULACJE!!", MB_OK ) == IDOK)
+     {
+       ball->Visible = false;
+       buttonNewGame->Visible = true;
+       Button2->Visible = false;
+       Button3->Visible = false;
+       Button4->Visible = false;
+       scorePlayerRight = 0;
+       scorePlayerLeft = 0;
+       bounces = 0;
+   }
+  }
 }
 //---------------------------------------------------------------------------
 void __fastcall TPingPong::LeftUpTimer(TObject *Sender)
@@ -92,6 +202,75 @@ void __fastcall TPingPong::RightUpTimer(TObject *Sender)
 void __fastcall TPingPong::RightDownTimer(TObject *Sender)
 {
   if(paddleRight->Top + paddleRight->Height + 10 <= tlo->Height) paddleRight->Top += 10;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TPingPong::FormCreate(TObject *Sender)
+{
+  DoubleBuffered = true;
+  Application->MessageBox("Witaj w grze PingPong.\n\nSterowanie gracza lewego: Q oraz A.\nSterowanie gracza prawego: strza³ka do góry i w dó³.\n\nZasady gry:\nPo kazdym kolejnym odbiciu pi³ka przyspiesza.\nKolory pola gry zmieniaj¹ siê wraz z iloœci¹ odbiæ.\nWygrywa gracz, który pierwszy zdobêdzie 5 punktów.\n\n\n Mi³ej zabawy!!!",NULL);
+  ball->Visible = false;
+  buttonNewGame->Visible = true;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TPingPong::Button3Click(TObject *Sender)
+{
+
+   if(Application->MessageBox("Czy na pewno chcesz rozpocz¹æ od nowa?", "PotwierdŸ", MB_YESNOCANCEL | MB_ICONQUESTION) == IDYES)
+   {
+     x = -8; y = -8;
+     ball->Left = 400;
+     ball->Top = 200;
+     ball->Visible = true;
+     Timer_ball->Enabled = true;
+     Button1->Visible = false;
+     Button2->Visible = false;
+     Button3->Visible = false;
+     Button4->Visible = false;
+     tlo->Visible = true;
+     scorePlayerLeft = 0;
+     scorePlayerRight = 0;
+     bounces = 0;
+     whoPlay = false;
+  }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TPingPong::Button4Click(TObject *Sender)
+{
+
+   if(whoPlay){ x = -8;  y = -8;}
+   else { x = 8;  y = 8;}
+   whoPlay = false;
+   ball->Left = 400;
+   ball->Top = 200;
+   ball->Visible = true;
+   Timer_ball->Enabled = true;
+   Button1->Visible = false;
+   Button2->Visible = false;
+   Button3->Visible = false;
+   Button4->Visible = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TPingPong::buttonNewGameClick(TObject *Sender)
+{
+   ball->Left = 400;
+   ball->Top = 200;
+   ball->Visible = true;
+   x = -8; y = -8;
+   Timer_ball->Enabled = true;
+   Button1->Visible = false;
+   Button2->Visible = false;
+   Button3->Visible = false;
+   Button4->Visible = false;
+   buttonNewGame->Visible = false;
+   int scorePlayerLeft = 0;
+   int scorePlayerRight = 0;
+   int bounces = 0;
+   tlo->Visible = true;
 }
 //---------------------------------------------------------------------------
 

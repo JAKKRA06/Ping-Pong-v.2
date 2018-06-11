@@ -13,7 +13,6 @@
 class TPingPong : public TForm
 {
 __published:	// IDE-managed Components
-        TShape *tlo;
         TImage *paddleLeft;
         TImage *ball;
         TTimer *Timer_ball;
@@ -22,6 +21,15 @@ __published:	// IDE-managed Components
         TImage *paddleRight;
         TTimer *RightUp;
         TTimer *RightDown;
+        TButton *Button1;
+        TButton *Button2;
+        TButton *Button3;
+        TButton *Button4;
+        TShape *tlo2;
+        TShape *tlo;
+        TButton *buttonNewGame;
+        TShape *tlo3;
+        TShape *tlo4;
         void __fastcall Timer_ballTimer(TObject *Sender);
         void __fastcall LeftUpTimer(TObject *Sender);
         void __fastcall LeftDownTimer(TObject *Sender);
@@ -31,6 +39,10 @@ __published:	// IDE-managed Components
           TShiftState Shift);
         void __fastcall RightUpTimer(TObject *Sender);
         void __fastcall RightDownTimer(TObject *Sender);
+        void __fastcall FormCreate(TObject *Sender);
+        void __fastcall Button3Click(TObject *Sender);
+        void __fastcall Button4Click(TObject *Sender);
+        void __fastcall buttonNewGameClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TPingPong(TComponent* Owner);
