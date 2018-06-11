@@ -68,8 +68,8 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
                 if(x>0)
                 {
                   x = -x;
-                  x -= 4;
-                  y += 4;
+                  x -= 1;
+                  y += 1;
                   bounces++;
                 }
               }
@@ -107,8 +107,8 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
               ball->Left < paddleLeft->Left + paddleLeft->Width)
               {
                   x = -x;
-                  x += 4;
-                  y += 4;
+                  x += 1;
+                  y += 1;
                   bounces++;
               }
    if(bounces == 5)
@@ -209,7 +209,8 @@ void __fastcall TPingPong::FormCreate(TObject *Sender)
 {
   DoubleBuffered = true;
   Application->MessageBox("Witaj w grze PingPong.\n\nSterowanie gracza lewego: Q oraz A.\nSterowanie gracza prawego: strza³ka do góry i w dó³.\n\nZasady gry:\nPo kazdym kolejnym odbiciu pi³ka przyspiesza.\nKolory pola gry zmieniaj¹ siê wraz z iloœci¹ odbiæ.\nWygrywa gracz, który pierwszy zdobêdzie 5 punktów.\n\n\n Mi³ej zabawy!!!",NULL);
-  ball->Visible = false;
+  ball->Visible = true;
+  Timer_ball->Enabled = false;
   buttonNewGame->Visible = true;
 }
 //---------------------------------------------------------------------------
@@ -247,6 +248,7 @@ void __fastcall TPingPong::Button4Click(TObject *Sender)
    ball->Left = 400;
    ball->Top = 200;
    ball->Visible = true;
+   bounces = 0;
    Timer_ball->Enabled = true;
    Button1->Visible = false;
    Button2->Visible = false;
@@ -267,9 +269,9 @@ void __fastcall TPingPong::buttonNewGameClick(TObject *Sender)
    Button3->Visible = false;
    Button4->Visible = false;
    buttonNewGame->Visible = false;
-   int scorePlayerLeft = 0;
-   int scorePlayerRight = 0;
-   int bounces = 0;
+   scorePlayerLeft = 0;
+   scorePlayerRight = 0;
+   bounces = 0;
    tlo->Visible = true;
 }
 //---------------------------------------------------------------------------

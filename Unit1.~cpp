@@ -68,8 +68,8 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
                 if(x>0)
                 {
                   x = -x;
-                  x -= 4;
-                  y += 4;
+                  x -= 1;
+                  y += 1;
                   bounces++;
                 }
               }
@@ -107,8 +107,8 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
               ball->Left < paddleLeft->Left + paddleLeft->Width)
               {
                   x = -x;
-                  x += 4;
-                  y += 4;
+                  x += 1;
+                  y += 1;
                   bounces++;
               }
    if(bounces == 5)
@@ -136,7 +136,7 @@ void __fastcall TPingPong::Timer_ballTimer(TObject *Sender)
      ball->Visible = true;
    }
 
-   if(scorePlayerLeft == 2)
+   if(scorePlayerLeft == 5)
    {
      if(Application->MessageBox("Wygrywa gracz po lewej stronie!!!!","GRATULACJE!!", MB_OK ) == IDOK)
      {
@@ -209,7 +209,8 @@ void __fastcall TPingPong::FormCreate(TObject *Sender)
 {
   DoubleBuffered = true;
   Application->MessageBox("Witaj w grze PingPong.\n\nSterowanie gracza lewego: Q oraz A.\nSterowanie gracza prawego: strza³ka do góry i w dó³.\n\nZasady gry:\nPo kazdym kolejnym odbiciu pi³ka przyspiesza.\nKolory pola gry zmieniaj¹ siê wraz z iloœci¹ odbiæ.\nWygrywa gracz, który pierwszy zdobêdzie 5 punktów.\n\n\n Mi³ej zabawy!!!",NULL);
-  ball->Visible = false;
+  ball->Visible = true;
+  Timer_ball->Enabled = false;
   buttonNewGame->Visible = true;
 }
 //---------------------------------------------------------------------------

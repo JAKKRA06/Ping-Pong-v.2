@@ -257,8 +257,8 @@ object PingPong: TPingPong
       17291E17291E17291E17291E17291EFFFFFF}
   end
   object ball: TImage
-    Left = 456
-    Top = 200
+    Left = 480
+    Top = 352
     Width = 32
     Height = 32
     AutoSize = True
@@ -640,10 +640,10 @@ object PingPong: TPingPong
     Cursor = crHandPoint
     Caption = 'Kliknij aby rozpocz'#261#263' gr'#281
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clLime
     Font.Height = -20
     Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
+    Font.Style = []
     ParentFont = False
     TabOrder = 4
     Visible = False
