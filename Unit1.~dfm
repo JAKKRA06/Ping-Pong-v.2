@@ -22,7 +22,7 @@ object PingPong: TPingPong
     417)
   PixelsPerInch = 96
   TextHeight = 13
-  object tlo3: TShape
+  object background3: TShape
     Left = 0
     Top = 0
     Width = 995
@@ -31,7 +31,7 @@ object PingPong: TPingPong
     Brush.Color = clFuchsia
     Visible = False
   end
-  object tlo4: TShape
+  object background4: TShape
     Left = 0
     Top = 0
     Width = 995
@@ -40,7 +40,7 @@ object PingPong: TPingPong
     Brush.Color = clBlue
     Visible = False
   end
-  object tlo2: TShape
+  object background2: TShape
     Left = 0
     Top = 0
     Width = 995
@@ -49,7 +49,7 @@ object PingPong: TPingPong
     Brush.Color = clGreen
     Visible = False
   end
-  object tlo: TShape
+  object background: TShape
     Left = 0
     Top = 0
     Width = 995

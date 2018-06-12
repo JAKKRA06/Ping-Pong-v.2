@@ -25,11 +25,11 @@ __published:	// IDE-managed Components
         TButton *Button2;
         TButton *Button3;
         TButton *Button4;
-        TShape *tlo2;
-        TShape *tlo;
+        TShape *background2;
+        TShape *background;
         TButton *buttonNewGame;
-        TShape *tlo3;
-        TShape *tlo4;
+        TShape *background3;
+        TShape *background4;
         void __fastcall Timer_ballTimer(TObject *Sender);
         void __fastcall LeftUpTimer(TObject *Sender);
         void __fastcall LeftDownTimer(TObject *Sender);
